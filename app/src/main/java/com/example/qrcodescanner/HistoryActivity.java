@@ -43,7 +43,7 @@ public class HistoryActivity extends AppCompatActivity {
         adapter = new HistoryAdapter(historyList, this);
         recyclerView.setAdapter(adapter);
         drawerLayout = findViewById(R.id.drawer_layout);
-
+        myauth=FirebaseAuth.getInstance();
         NavigationView navView = findViewById(R.id.nav_view);
         menuBtn = findViewById(R.id.menu_btn);
         Window window = getWindow();

@@ -45,28 +45,28 @@ public class RegisterActivity extends AppCompatActivity {
     private void RegisterUser() {
         String password = passe.getText().toString().trim();
         String confirmPassword = passe2.getText().toString().trim();
-        String email=emaile.getText().toString().trim();
+        String email = emaile.getText().toString().trim();
 
-        if (!password.equals(confirmPassword)) {
-            Toast.makeText(RegisterActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (email.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()){
+        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Please Fill all Fields", Toast.LENGTH_SHORT).show();
             return;
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(RegisterActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = myAuth.getCurrentUser();
+                    Toast.makeText(this, "Registration Successfull", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(this, "Registration FAiled" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
         }
-        myAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this,task -> {
-            if (task.isSuccessful()){
-                FirebaseUser user=myAuth.getCurrentUser();
-                Toast.makeText(this, "Registration Successfull", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-
-            }else{
-                Toast.makeText(this, "Registration FAiled"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
     }
 }

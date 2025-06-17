@@ -33,21 +33,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetUser() {
-        String email=emaile.getText().toString().trim();
-        if (email.isEmpty()){
+        String email = emaile.getText().toString().trim();
+        if (email.isEmpty()) {
             Toast.makeText(this, "Please Enter Email To Reset Password", Toast.LENGTH_SHORT).show();
-        }
-        myAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                Toast.makeText(this, "Reset link sent to " + email, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+        } else {
+            myAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Reset link sent to " + email, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
 
-            }
-            else {
-                Toast.makeText(this, "Login Failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                } else {
+                    Toast.makeText(this, "Login Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
