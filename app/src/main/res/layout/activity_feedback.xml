@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <!-- DrawerLayout inside RelativeLayout -->
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="24dp"
-            android:background="@color/white">
+            android:background="#ECEFF1">
 
             <!-- Menu (hamburger) Button -->
             <ImageView
@@ -25,8 +26,16 @@
                 android:layout_height="40dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/menu"
+                android:src="@drawable/baseline_menu_24"
                 android:contentDescription="Menu"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FEEDBACK"
+                android:textSize="25dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#F30B1F"/>
 
             <!-- Feedback EditText -->
             <EditText
@@ -36,9 +45,11 @@
                 android:layout_below="@id/menu_btn"
                 android:layout_marginTop="24dp"
                 android:hint="Enter your feedback"
+                android:textColorHint="#888888"
+                android:textColor="#333333"
                 android:gravity="start"
                 android:padding="16dp"
-                android:background="#123"
+                android:background="@drawable/rounded_edittext"
                 android:inputType="textMultiLine"
                 android:maxLines="6"/>
 
@@ -50,8 +61,8 @@
                 android:layout_below="@id/et_feedback"
                 android:layout_marginTop="24dp"
                 android:text="Submit"
-                android:backgroundTint="@color/white"
-                android:textColor="@android:color/white"/>
+                android:backgroundTint="#3F51B5"
+                android:textColor="#FFFFFF"/>
         </RelativeLayout>
 
         <!-- Navigation Drawer -->
@@ -66,4 +77,4 @@
             app:itemTextColor="@color/white"
             app:itemIconTint="@color/white"/>
     </androidx.drawerlayout.widget.DrawerLayout>
-</RelativeLayout>
+</LinearLayout>
