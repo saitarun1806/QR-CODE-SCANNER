@@ -1,10 +1,12 @@
 package com.example.qrcodescanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +28,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         resete= (Button) findViewById(R.id.res);
         myAuth=FirebaseAuth.getInstance();
         resete.setOnClickListener(view -> resetUser());
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
     }
 
     private void resetUser() {

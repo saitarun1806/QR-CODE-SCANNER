@@ -21,6 +21,13 @@
                 android:id="@+id/pv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/scanner_overlay"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/frame" />
+
 
             <!-- Flash Button (Centered at the Top) -->
             <ImageButton

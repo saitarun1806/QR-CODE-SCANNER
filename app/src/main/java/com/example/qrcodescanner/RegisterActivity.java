@@ -1,9 +1,11 @@
 package com.example.qrcodescanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,6 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
         signin= (TextView) findViewById(R.id.signin);
         reg= (Button) findViewById(R.id.Reg);
         myAuth=FirebaseAuth.getInstance();
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
         signin.setOnClickListener(view -> {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
 
