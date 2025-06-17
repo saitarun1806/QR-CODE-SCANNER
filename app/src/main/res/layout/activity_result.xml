@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#232323">
+
+    <!-- Header Bar with Back Arrow -->
+    <RelativeLayout
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#007FFF">
+
+        <ImageButton
+            android:id="@+id/arrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="12dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Scan Result"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Scan Section -->
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_below="@id/header_container"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Result"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:clickable="true"
+        android:textColor="@color/white"
+        android:autoLink="web"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:id="@+id/action_buttons"
+        android:layout_below="@id/tv_result"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/dial"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/call"
+            android:background="@android:color/transparent"
+            android:contentDescription="Dial" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dial"
+            android:textSize="14sp"
+            android:id="@+id/dialtext"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+        <ImageButton
+            android:id="@+id/btn_open"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/open"
+            android:background="@android:color/transparent"
+            android:contentDescription="Open" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open"
+            android:textSize="14sp"
+            android:id="@+id/optext"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+        <ImageButton
+            android:id="@+id/email"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/baseline_email_24"
+            android:background="@android:color/transparent"
+            android:contentDescription="Open" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Email"
+            android:textSize="14sp"
+            android:id="@+id/emailtext"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+        <ImageButton
+            android:id="@+id/sms"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/sms"
+            android:background="@android:color/transparent"
+            android:contentDescription="Open" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send SMS"
+            android:textSize="14sp"
+            android:id="@+id/smstext"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/baseline_email_24"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Email"
+            android:textSize="14sp"
+            android:id="@+id/ettext"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+    <!-- Share -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/share"
+            android:background="@android:color/transparent"
+            android:contentDescription="Share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Copy -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btn_copy"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/copy"
+            android:background="@android:color/transparent"
+            android:contentDescription="Copy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copy"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
