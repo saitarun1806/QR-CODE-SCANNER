@@ -54,7 +54,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         // OnClick: Open ResultActivity with content
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ResultActivity.class);
-            intent.putExtra("qr_result", model.getContent());
+            intent.putExtra("qr_result", model.getContent()); // Use content directly
             context.startActivity(intent);
         });
 

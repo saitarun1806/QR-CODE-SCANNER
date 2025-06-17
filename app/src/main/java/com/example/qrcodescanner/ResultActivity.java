@@ -122,22 +122,30 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         // Save to Firestore
-        saveToRealtimeDatabase(qrResult);
+        saveToHistory(qrResult);
     }
 
-    private void saveToRealtimeDatabase(String qrText) {
+    private void saveToHistory(String qrText) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users")
+        DatabaseReference historyRef = FirebaseDatabase.getInstance()
+                .getReference("users")
                 .child(uid)
                 .child("history");
 
-        String id = ref.push().getKey();
-        ScanModel scan = new ScanModel(qrText, System.currentTimeMillis());
+        // Use safe key (e.g., replace invalid Firebase key characters)
+        String safeKey = qrText.replaceAll("[.#$\\[\\]/]", "_");
 
-        if (id != null) {
-            ref.child(id).setValue(scan);
-        }
+        Map<String, Object> historyItem = new HashMap<>();
+        historyItem.put("content", qrText);
+        historyItem.put("timestamp", System.currentTimeMillis());
+
+        historyRef.child(safeKey).setValue(historyItem)
+                .addOnSuccessListener(aVoid ->
+                        Log.d("Firebase", "QR saved/updated"))
+                .addOnFailureListener(e ->
+                        Log.e("Firebase", "Error saving history", e));
     }
+
 
 
     private boolean sendemail(String text) {

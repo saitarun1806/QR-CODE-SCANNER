@@ -58,6 +58,7 @@ public class ScannerActivity extends AppCompatActivity {
      boolean scannedOnce = false;
      ExecutorService cameraExecutor;
      int CAMERA_PERMISSION_CODE = 1001;
+    DrawerLayout drawerLayout;
      FirebaseAuth myauth;
 
     @SuppressLint("NonConstantResourceId")
@@ -70,7 +71,7 @@ public class ScannerActivity extends AppCompatActivity {
         flashButton = findViewById(R.id.fb);
         flipButton = findViewById(R.id.flip_camera);
         menuBtn= (ImageButton) findViewById(R.id.menu);
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         menuBtn.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         myauth=FirebaseAuth.getInstance();
 
@@ -129,7 +130,14 @@ public class ScannerActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
     }
-
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); // Close the drawer if open
+        } else {
+            super.onBackPressed(); // Otherwise, do normal back behavior
+        }
+    }
     @OptIn(markerClass = ExperimentalGetImage.class)
     private void startCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -193,6 +201,8 @@ public class ScannerActivity extends AppCompatActivity {
             Toast.makeText(this, "Camera permission is required", Toast.LENGTH_SHORT).show();
         }
     }
+
+
     @Override
     protected void onResume() {
         super.onResume();
