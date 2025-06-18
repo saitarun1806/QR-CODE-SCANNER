@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
@@ -24,11 +25,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -60,6 +63,9 @@ public class ScannerActivity extends AppCompatActivity {
      int CAMERA_PERMISSION_CODE = 1001;
     DrawerLayout drawerLayout;
      FirebaseAuth myauth;
+    View headerView;
+    TextView userEmail;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -74,8 +80,18 @@ public class ScannerActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         menuBtn.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         myauth=FirebaseAuth.getInstance();
-
         NavigationView navView = findViewById(R.id.nav_view);
+        headerView = navView.getHeaderView(0);
+        userEmail = headerView.findViewById(R.id.user_email);
+
+        FirebaseUser user = myauth.getCurrentUser();
+        if (user != null) {
+            userEmail.setText(user.getEmail());
+        }
+        menuBtn.setOnClickListener(v -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+
         navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_scan) {
@@ -129,14 +145,6 @@ public class ScannerActivity extends AppCompatActivity {
         });
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
-    }
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START); // Close the drawer if open
-        } else {
-            super.onBackPressed(); // Otherwise, do normal back behavior
-        }
     }
     @OptIn(markerClass = ExperimentalGetImage.class)
     private void startCamera() {
@@ -208,6 +216,35 @@ public class ScannerActivity extends AppCompatActivity {
         super.onResume();
         scannedOnce = false;
     }
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                // Show confirmation dialog on second back press
+                showExitConfirmationDialog();
+            } else {
+                doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+            }
+        }
+    }
+
+
+    private void showExitConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit App")
+                .setMessage("Do you want to exit?")
+                .setPositiveButton("Yes", (dialog, which) -> finishAffinity())
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
+
 
     @Override
     protected void onDestroy() {

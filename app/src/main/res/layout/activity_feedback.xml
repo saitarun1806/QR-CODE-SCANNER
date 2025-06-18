@@ -73,6 +73,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             android:background="@color/black"
+            app:headerLayout="@layout/actvity_profile"
             app:menu="@menu/menu_main"
             app:itemTextColor="@color/white"
             app:itemIconTint="@color/white"/>

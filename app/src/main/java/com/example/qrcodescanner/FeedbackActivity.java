@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +32,8 @@ public class FeedbackActivity extends AppCompatActivity {
     FirebaseAuth myauth;
     DrawerLayout drawerLayout;
     ImageView menuBtn;
+    View headerView;
+    TextView userEmail;
 
 
 
@@ -41,18 +45,23 @@ public class FeedbackActivity extends AppCompatActivity {
 
         feedbackInput = findViewById(R.id.et_feedback);
         submitBtn = findViewById(R.id.btn_submit_feedback);
-        myauth=FirebaseAuth.getInstance();
+        myauth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navView = findViewById(R.id.nav_view);
+        headerView = navView.getHeaderView(0);
+        userEmail = headerView.findViewById(R.id.user_email);
+
+        navView = findViewById(R.id.nav_view);
         menuBtn = findViewById(R.id.menu_btn);
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color));
         menuBtn.setOnClickListener(v -> {
             drawerLayout.openDrawer(GravityCompat.START);
         });
-
-// Set navigation actions here ONCE
+        FirebaseUser user = myauth.getCurrentUser();
+        if (user != null) {
+            userEmail.setText(user.getEmail());
+        }
         navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_feedback) {

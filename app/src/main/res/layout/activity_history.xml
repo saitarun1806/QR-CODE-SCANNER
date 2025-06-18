@@ -78,6 +78,7 @@
             android:background="@color/black"
             android:fitsSystemWindows="true"
             app:menu="@menu/menu_main"
+            app:headerLayout="@layout/actvity_profile"
             app:itemTextColor="@color/white"
             app:itemIconTint="@color/white"/>
     </androidx.drawerlayout.widget.DrawerLayout>

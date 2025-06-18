@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
     ImageView menuBtn;
     FirebaseAuth myauth;
     DrawerLayout drawerLayout;
+    View headerView;
+    TextView userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,21 @@ public class HistoryActivity extends AppCompatActivity {
         myauth=FirebaseAuth.getInstance();
         NavigationView navView = findViewById(R.id.nav_view);
         menuBtn = findViewById(R.id.menu_btn);
+        headerView = navView.getHeaderView(0);
+        userEmail = headerView.findViewById(R.id.user_email);
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.status_bar_color2));
+
+
+
+        FirebaseUser user = myauth.getCurrentUser();
+        if (user != null) {
+            userEmail.setText(user.getEmail());
+        }
         menuBtn.setOnClickListener(v -> {
             drawerLayout.openDrawer(GravityCompat.START);
         });
 
-// Set navigation actions here ONCE
         navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_history) {
