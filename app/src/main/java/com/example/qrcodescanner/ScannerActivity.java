@@ -218,6 +218,7 @@ public class ScannerActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
